@@ -1,0 +1,128 @@
+prelude: :gerbil/core
+package: jafourni/gerbil-postgres
+namespace: jafourni/gerbil-postgres/pool
+
+(%#begin (%#import
+          :std/db/dbi
+          :std/db/conpool
+          :std/sugar
+          :jafourni/gerbil-postgres/errors
+          :jafourni/gerbil-postgres/logging)
+         (%#export
+          (spec: 0 pg-pool-open pg-pool-open)
+          (spec: 0 pg-pool? pg-pool?)
+          (spec: 0 pg-pool-get pg-pool-get)
+          (spec: 0 pg-pool-put pg-pool-put)
+          (spec: 0 pg-pool-release pg-pool-release)
+          (spec: 0 pg-pool-shutdown pg-pool-shutdown)
+          (spec: 0 pg-pool-get-stats pg-pool-get-stats)
+          (spec: 0 with-connection with-connection))
+         (%#define-runtime pg-pool::t jafourni/gerbil-postgres/pool#pg-pool::t)
+         (%#define-runtime pg-pool? jafourni/gerbil-postgres/pool#pg-pool?)
+         (%#define-runtime
+          make-pg-pool
+          jafourni/gerbil-postgres/pool#make-pg-pool)
+         (%#define-runtime
+          pg-pool-conpool
+          jafourni/gerbil-postgres/pool#pg-pool-conpool)
+         (%#define-runtime
+          pg-pool-connect-fn
+          jafourni/gerbil-postgres/pool#pg-pool-connect-fn)
+         (%#define-runtime
+          pg-pool-config
+          jafourni/gerbil-postgres/pool#pg-pool-config)
+         (%#define-runtime pg-pool-mx jafourni/gerbil-postgres/pool#pg-pool-mx)
+         (%#define-runtime
+          pg-pool-counters
+          jafourni/gerbil-postgres/pool#pg-pool-counters)
+         (%#define-runtime
+          pg-pool-conpool-set!
+          jafourni/gerbil-postgres/pool#pg-pool-conpool-set!)
+         (%#define-runtime
+          pg-pool-connect-fn-set!
+          jafourni/gerbil-postgres/pool#pg-pool-connect-fn-set!)
+         (%#define-runtime
+          pg-pool-config-set!
+          jafourni/gerbil-postgres/pool#pg-pool-config-set!)
+         (%#define-runtime
+          pg-pool-mx-set!
+          jafourni/gerbil-postgres/pool#pg-pool-mx-set!)
+         (%#define-runtime
+          pg-pool-counters-set!
+          jafourni/gerbil-postgres/pool#pg-pool-counters-set!)
+         (%#define-runtime
+          &pg-pool-conpool
+          jafourni/gerbil-postgres/pool#&pg-pool-conpool)
+         (%#define-runtime
+          &pg-pool-connect-fn
+          jafourni/gerbil-postgres/pool#&pg-pool-connect-fn)
+         (%#define-runtime
+          &pg-pool-config
+          jafourni/gerbil-postgres/pool#&pg-pool-config)
+         (%#define-runtime
+          &pg-pool-mx
+          jafourni/gerbil-postgres/pool#&pg-pool-mx)
+         (%#define-runtime
+          &pg-pool-counters
+          jafourni/gerbil-postgres/pool#&pg-pool-counters)
+         (%#define-runtime
+          &pg-pool-conpool-set!
+          jafourni/gerbil-postgres/pool#&pg-pool-conpool-set!)
+         (%#define-runtime
+          &pg-pool-connect-fn-set!
+          jafourni/gerbil-postgres/pool#&pg-pool-connect-fn-set!)
+         (%#define-runtime
+          &pg-pool-config-set!
+          jafourni/gerbil-postgres/pool#&pg-pool-config-set!)
+         (%#define-runtime
+          &pg-pool-mx-set!
+          jafourni/gerbil-postgres/pool#&pg-pool-mx-set!)
+         (%#define-runtime
+          &pg-pool-counters-set!
+          jafourni/gerbil-postgres/pool#&pg-pool-counters-set!)
+         (%#begin (%#begin-syntax
+                   (%#call (%#ref load-module)
+                           (%#quote "jafourni/gerbil-postgres/pool~1")))
+                  (%#define-syntax
+                   pg-pool
+                   |jafourni/gerbil-postgres/pool[:0:]#pg-pool|))
+         (%#define-runtime
+          pg-pool:::init!
+          jafourni/gerbil-postgres/pool#pg-pool:::init!)
+         (%#begin (%#define-runtime
+                   pg-pool-open__%
+                   jafourni/gerbil-postgres/pool#pg-pool-open__%)
+                  (%#define-runtime
+                   pg-pool-open__@
+                   jafourni/gerbil-postgres/pool#pg-pool-open__@)
+                  (%#define-runtime
+                   pg-pool-open
+                   jafourni/gerbil-postgres/pool#pg-pool-open))
+         (%#begin (%#define-runtime
+                   pg-pool-get__%
+                   jafourni/gerbil-postgres/pool#pg-pool-get__%)
+                  (%#begin (%#define-runtime
+                            pg-pool-get__0
+                            jafourni/gerbil-postgres/pool#pg-pool-get__0)
+                           (%#define-runtime
+                            pg-pool-get
+                            jafourni/gerbil-postgres/pool#pg-pool-get)))
+         (%#define-runtime
+          pg-pool-put
+          jafourni/gerbil-postgres/pool#pg-pool-put)
+         (%#define-runtime
+          pg-pool-release
+          jafourni/gerbil-postgres/pool#pg-pool-release)
+         (%#define-runtime
+          pg-pool-shutdown
+          jafourni/gerbil-postgres/pool#pg-pool-shutdown)
+         (%#define-runtime
+          pg-pool-get-stats
+          jafourni/gerbil-postgres/pool#pg-pool-get-stats)
+         (%#define-runtime
+          pg-counters-inc!
+          jafourni/gerbil-postgres/pool#pg-counters-inc!)
+         (%#define-syntax
+          with-connection
+          |jafourni/gerbil-postgres/pool[:0:]#with-connection|))
+(%#call (%#ref load-module) (%#quote "jafourni/gerbil-postgres/pool~0"))

@@ -1,0 +1,221 @@
+prelude: :gerbil/core
+package: jafourni/gerbil-postgres
+namespace: jafourni/gerbil-postgres/migrations
+
+(%#begin (%#import
+          :std/db/dbi
+          :std/sort
+          :std/sugar
+          :std/misc/ports
+          :jafourni/gerbil-postgres/errors
+          :jafourni/gerbil-postgres/logging
+          :jafourni/gerbil-postgres/transactions)
+         (%#export
+          (spec: 0 make-migration make-migration)
+          (spec: 0 migration? migration?)
+          (spec: 0 migration-version migration-version)
+          (spec: 0 migration-name migration-name)
+          (spec: 0 migration-up-sql migration-up-sql)
+          (spec: 0 migration-down-sql migration-down-sql)
+          (spec: 0 migration-checksum migration-checksum)
+          (spec:
+           0
+           load-migrations-from-directory
+           load-migrations-from-directory)
+          (spec: 0 migrator-open migrator-open)
+          (spec: 0 migrator? migrator?)
+          (spec: 0 migrate-up! migrate-up!)
+          (spec: 0 migrate-up-to! migrate-up-to!)
+          (spec: 0 migrate-down! migrate-down!)
+          (spec: 0 migration-status migration-status)
+          (spec: 0 pending-migrations pending-migrations))
+         (%#define-runtime
+          migration::t
+          jafourni/gerbil-postgres/migrations#migration::t)
+         (%#define-runtime
+          migration?
+          jafourni/gerbil-postgres/migrations#migration?)
+         (%#define-runtime
+          make-migration
+          jafourni/gerbil-postgres/migrations#make-migration)
+         (%#define-runtime
+          migration-version
+          jafourni/gerbil-postgres/migrations#migration-version)
+         (%#define-runtime
+          migration-name
+          jafourni/gerbil-postgres/migrations#migration-name)
+         (%#define-runtime
+          migration-up-sql
+          jafourni/gerbil-postgres/migrations#migration-up-sql)
+         (%#define-runtime
+          migration-down-sql
+          jafourni/gerbil-postgres/migrations#migration-down-sql)
+         (%#define-runtime
+          migration-checksum
+          jafourni/gerbil-postgres/migrations#migration-checksum)
+         (%#define-runtime
+          migration-version-set!
+          jafourni/gerbil-postgres/migrations#migration-version-set!)
+         (%#define-runtime
+          migration-name-set!
+          jafourni/gerbil-postgres/migrations#migration-name-set!)
+         (%#define-runtime
+          migration-up-sql-set!
+          jafourni/gerbil-postgres/migrations#migration-up-sql-set!)
+         (%#define-runtime
+          migration-down-sql-set!
+          jafourni/gerbil-postgres/migrations#migration-down-sql-set!)
+         (%#define-runtime
+          migration-checksum-set!
+          jafourni/gerbil-postgres/migrations#migration-checksum-set!)
+         (%#define-runtime
+          &migration-version
+          jafourni/gerbil-postgres/migrations#&migration-version)
+         (%#define-runtime
+          &migration-name
+          jafourni/gerbil-postgres/migrations#&migration-name)
+         (%#define-runtime
+          &migration-up-sql
+          jafourni/gerbil-postgres/migrations#&migration-up-sql)
+         (%#define-runtime
+          &migration-down-sql
+          jafourni/gerbil-postgres/migrations#&migration-down-sql)
+         (%#define-runtime
+          &migration-checksum
+          jafourni/gerbil-postgres/migrations#&migration-checksum)
+         (%#define-runtime
+          &migration-version-set!
+          jafourni/gerbil-postgres/migrations#&migration-version-set!)
+         (%#define-runtime
+          &migration-name-set!
+          jafourni/gerbil-postgres/migrations#&migration-name-set!)
+         (%#define-runtime
+          &migration-up-sql-set!
+          jafourni/gerbil-postgres/migrations#&migration-up-sql-set!)
+         (%#define-runtime
+          &migration-down-sql-set!
+          jafourni/gerbil-postgres/migrations#&migration-down-sql-set!)
+         (%#define-runtime
+          &migration-checksum-set!
+          jafourni/gerbil-postgres/migrations#&migration-checksum-set!)
+         (%#begin (%#begin-syntax
+                   (%#call (%#ref load-module)
+                           (%#quote "jafourni/gerbil-postgres/migrations~1")))
+                  (%#define-syntax
+                   migration
+                   |jafourni/gerbil-postgres/migrations[:0:]#migration|))
+         (%#define-runtime
+          migrator::t
+          jafourni/gerbil-postgres/migrations#migrator::t)
+         (%#define-runtime
+          migrator?
+          jafourni/gerbil-postgres/migrations#migrator?)
+         (%#define-runtime
+          make-migrator
+          jafourni/gerbil-postgres/migrations#make-migrator)
+         (%#define-runtime
+          migrator-conn
+          jafourni/gerbil-postgres/migrations#migrator-conn)
+         (%#define-runtime
+          migrator-migrations
+          jafourni/gerbil-postgres/migrations#migrator-migrations)
+         (%#define-runtime
+          migrator-lock-id
+          jafourni/gerbil-postgres/migrations#migrator-lock-id)
+         (%#define-runtime
+          migrator-conn-set!
+          jafourni/gerbil-postgres/migrations#migrator-conn-set!)
+         (%#define-runtime
+          migrator-migrations-set!
+          jafourni/gerbil-postgres/migrations#migrator-migrations-set!)
+         (%#define-runtime
+          migrator-lock-id-set!
+          jafourni/gerbil-postgres/migrations#migrator-lock-id-set!)
+         (%#define-runtime
+          &migrator-conn
+          jafourni/gerbil-postgres/migrations#&migrator-conn)
+         (%#define-runtime
+          &migrator-migrations
+          jafourni/gerbil-postgres/migrations#&migrator-migrations)
+         (%#define-runtime
+          &migrator-lock-id
+          jafourni/gerbil-postgres/migrations#&migrator-lock-id)
+         (%#define-runtime
+          &migrator-conn-set!
+          jafourni/gerbil-postgres/migrations#&migrator-conn-set!)
+         (%#define-runtime
+          &migrator-migrations-set!
+          jafourni/gerbil-postgres/migrations#&migrator-migrations-set!)
+         (%#define-runtime
+          &migrator-lock-id-set!
+          jafourni/gerbil-postgres/migrations#&migrator-lock-id-set!)
+         (%#define-syntax
+          migrator
+          |jafourni/gerbil-postgres/migrations[:0:]#migrator|)
+         (%#define-runtime
+          load-migrations-from-directory
+          jafourni/gerbil-postgres/migrations#load-migrations-from-directory)
+         (%#define-runtime
+          string-suffix?
+          jafourni/gerbil-postgres/migrations#string-suffix?)
+         (%#define-runtime
+          parse-migration-version
+          jafourni/gerbil-postgres/migrations#parse-migration-version)
+         (%#define-runtime
+          parse-migration-name
+          jafourni/gerbil-postgres/migrations#parse-migration-name)
+         (%#define-runtime
+          string-crc32
+          jafourni/gerbil-postgres/migrations#string-crc32)
+         (%#define-runtime
+          +migration-lock-id+
+          jafourni/gerbil-postgres/migrations#+migration-lock-id+)
+         (%#begin (%#define-runtime
+                   migrator-open__%
+                   jafourni/gerbil-postgres/migrations#migrator-open__%)
+                  (%#define-runtime
+                   migrator-open__@
+                   jafourni/gerbil-postgres/migrations#migrator-open__@)
+                  (%#define-runtime
+                   migrator-open
+                   jafourni/gerbil-postgres/migrations#migrator-open))
+         (%#define-runtime
+          ensure-migration-table!
+          jafourni/gerbil-postgres/migrations#ensure-migration-table!)
+         (%#define-runtime
+          with-advisory-lock
+          jafourni/gerbil-postgres/migrations#with-advisory-lock)
+         (%#define-runtime
+          applied-versions
+          jafourni/gerbil-postgres/migrations#applied-versions)
+         (%#define-runtime
+          migrate-up!
+          jafourni/gerbil-postgres/migrations#migrate-up!)
+         (%#define-runtime
+          migrate-up-to!
+          jafourni/gerbil-postgres/migrations#migrate-up-to!)
+         (%#begin (%#define-runtime
+                   migrate-down!__%
+                   jafourni/gerbil-postgres/migrations#migrate-down!__%)
+                  (%#begin (%#define-runtime
+                            migrate-down!__0
+                            jafourni/gerbil-postgres/migrations#migrate-down!__0)
+                           (%#define-runtime
+                            migrate-down!
+                            jafourni/gerbil-postgres/migrations#migrate-down!)))
+         (%#define-runtime
+          migration-status
+          jafourni/gerbil-postgres/migrations#migration-status)
+         (%#define-runtime
+          pending-migrations
+          jafourni/gerbil-postgres/migrations#pending-migrations)
+         (%#define-runtime
+          apply-migration!
+          jafourni/gerbil-postgres/migrations#apply-migration!)
+         (%#define-runtime
+          rollback-migration!
+          jafourni/gerbil-postgres/migrations#rollback-migration!)
+         (%#define-runtime
+          take-up-to
+          jafourni/gerbil-postgres/migrations#take-up-to))
+(%#call (%#ref load-module) (%#quote "jafourni/gerbil-postgres/migrations~0"))

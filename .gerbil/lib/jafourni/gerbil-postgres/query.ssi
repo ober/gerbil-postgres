@@ -1,0 +1,39 @@
+prelude: :gerbil/core
+package: jafourni/gerbil-postgres
+namespace: jafourni/gerbil-postgres/query
+
+(%#begin (%#import :std/sugar)
+         (%#export
+          (spec: 0 sql-identifier sql-identifier)
+          (spec: 0 sql-named sql-named)
+          (spec: 0 sql-where sql-where)
+          (spec: 0 sql-insert sql-insert)
+          (spec: 0 sql-update sql-update))
+         (%#define-runtime
+          sql-identifier
+          jafourni/gerbil-postgres/query#sql-identifier)
+         (%#define-runtime
+          pg-escape-identifier
+          jafourni/gerbil-postgres/query#pg-escape-identifier)
+         (%#define-runtime sql-named jafourni/gerbil-postgres/query#sql-named)
+         (%#define-runtime
+          name-start-char?
+          jafourni/gerbil-postgres/query#name-start-char?)
+         (%#define-runtime
+          name-char?
+          jafourni/gerbil-postgres/query#name-char?)
+         (%#define-runtime scan-name jafourni/gerbil-postgres/query#scan-name)
+         (%#define-runtime
+          kwargs->alist
+          jafourni/gerbil-postgres/query#kwargs->alist)
+         (%#define-runtime sql-where jafourni/gerbil-postgres/query#sql-where)
+         (%#define-runtime
+          string-join
+          jafourni/gerbil-postgres/query#string-join)
+         (%#define-runtime
+          sql-insert
+          jafourni/gerbil-postgres/query#sql-insert)
+         (%#define-runtime
+          sql-update
+          jafourni/gerbil-postgres/query#sql-update))
+(%#call (%#ref load-module) (%#quote "jafourni/gerbil-postgres/query~0"))

@@ -1,0 +1,104 @@
+prelude: :gerbil/core
+package: jafourni/gerbil-postgres
+namespace: jafourni/gerbil-postgres/errors
+
+(%#begin (%#import :std/db/dbi :std/error :std/sugar)
+         (%#export
+          (spec: 0 pg-error-fields pg-error-fields)
+          (spec: 0 pg-error-sqlstate pg-error-sqlstate)
+          (spec: 0 pg-error-severity pg-error-severity)
+          (spec: 0 pg-error-detail pg-error-detail)
+          (spec: 0 pg-error-hint pg-error-hint)
+          (spec: 0 pg-error-position pg-error-position)
+          (spec: 0 pg-error-constraint pg-error-constraint)
+          (spec: 0 pg-error-table pg-error-table)
+          (spec: 0 pg-error-column pg-error-column)
+          (spec: 0 pg-connection-error? pg-connection-error?)
+          (spec: 0 pg-integrity-violation? pg-integrity-violation?)
+          (spec: 0 pg-unique-violation? pg-unique-violation?)
+          (spec: 0 pg-foreign-key-violation? pg-foreign-key-violation?)
+          (spec: 0 pg-not-null-violation? pg-not-null-violation?)
+          (spec: 0 pg-check-violation? pg-check-violation?)
+          (spec: 0 pg-serialization-failure? pg-serialization-failure?)
+          (spec: 0 pg-deadlock? pg-deadlock?)
+          (spec: 0 pg-syntax-error? pg-syntax-error?)
+          (spec: 0 pg-insufficient-privilege? pg-insufficient-privilege?)
+          (spec: 0 pg-undefined-table? pg-undefined-table?)
+          (spec: 0 pg-undefined-column? pg-undefined-column?)
+          (spec: 0 pg-transient-error? pg-transient-error?))
+         (%#define-runtime
+          pg-error-fields
+          jafourni/gerbil-postgres/errors#pg-error-fields)
+         (%#define-runtime
+          pg-error-field
+          jafourni/gerbil-postgres/errors#pg-error-field)
+         (%#define-runtime
+          pg-error-sqlstate
+          jafourni/gerbil-postgres/errors#pg-error-sqlstate)
+         (%#define-runtime
+          pg-error-severity
+          jafourni/gerbil-postgres/errors#pg-error-severity)
+         (%#define-runtime
+          pg-error-detail
+          jafourni/gerbil-postgres/errors#pg-error-detail)
+         (%#define-runtime
+          pg-error-hint
+          jafourni/gerbil-postgres/errors#pg-error-hint)
+         (%#define-runtime
+          pg-error-position
+          jafourni/gerbil-postgres/errors#pg-error-position)
+         (%#define-runtime
+          pg-error-constraint
+          jafourni/gerbil-postgres/errors#pg-error-constraint)
+         (%#define-runtime
+          pg-error-table
+          jafourni/gerbil-postgres/errors#pg-error-table)
+         (%#define-runtime
+          pg-error-column
+          jafourni/gerbil-postgres/errors#pg-error-column)
+         (%#define-runtime
+          pg-sqlstate-class?
+          jafourni/gerbil-postgres/errors#pg-sqlstate-class?)
+         (%#define-runtime
+          pg-sqlstate=?
+          jafourni/gerbil-postgres/errors#pg-sqlstate=?)
+         (%#define-runtime
+          pg-connection-error?
+          jafourni/gerbil-postgres/errors#pg-connection-error?)
+         (%#define-runtime
+          pg-integrity-violation?
+          jafourni/gerbil-postgres/errors#pg-integrity-violation?)
+         (%#define-runtime
+          pg-unique-violation?
+          jafourni/gerbil-postgres/errors#pg-unique-violation?)
+         (%#define-runtime
+          pg-foreign-key-violation?
+          jafourni/gerbil-postgres/errors#pg-foreign-key-violation?)
+         (%#define-runtime
+          pg-not-null-violation?
+          jafourni/gerbil-postgres/errors#pg-not-null-violation?)
+         (%#define-runtime
+          pg-check-violation?
+          jafourni/gerbil-postgres/errors#pg-check-violation?)
+         (%#define-runtime
+          pg-serialization-failure?
+          jafourni/gerbil-postgres/errors#pg-serialization-failure?)
+         (%#define-runtime
+          pg-deadlock?
+          jafourni/gerbil-postgres/errors#pg-deadlock?)
+         (%#define-runtime
+          pg-syntax-error?
+          jafourni/gerbil-postgres/errors#pg-syntax-error?)
+         (%#define-runtime
+          pg-insufficient-privilege?
+          jafourni/gerbil-postgres/errors#pg-insufficient-privilege?)
+         (%#define-runtime
+          pg-undefined-table?
+          jafourni/gerbil-postgres/errors#pg-undefined-table?)
+         (%#define-runtime
+          pg-undefined-column?
+          jafourni/gerbil-postgres/errors#pg-undefined-column?)
+         (%#define-runtime
+          pg-transient-error?
+          jafourni/gerbil-postgres/errors#pg-transient-error?))
+(%#call (%#ref load-module) (%#quote "jafourni/gerbil-postgres/errors~0"))

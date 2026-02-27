@@ -1,0 +1,51 @@
+prelude: :gerbil/core
+package: jafourni/gerbil-postgres
+namespace: jafourni/gerbil-postgres/transactions
+
+(%#begin (%#import
+          :std/db/dbi
+          :std/sugar
+          :jafourni/gerbil-postgres/errors
+          :jafourni/gerbil-postgres/logging)
+         (%#export
+          (spec: 0 call-with-transaction call-with-transaction)
+          (spec: 0 with-transaction with-transaction)
+          (spec: 0 pg-savepoint pg-savepoint)
+          (spec: 0 with-savepoint with-savepoint)
+          (spec: 0 call-with-serializable-retry call-with-serializable-retry)
+          (spec: 0 with-serializable-retry with-serializable-retry))
+         (%#begin (%#define-runtime
+                   call-with-transaction__%
+                   jafourni/gerbil-postgres/transactions#call-with-transaction__%)
+                  (%#define-runtime
+                   call-with-transaction__@
+                   jafourni/gerbil-postgres/transactions#call-with-transaction__@)
+                  (%#define-runtime
+                   call-with-transaction
+                   jafourni/gerbil-postgres/transactions#call-with-transaction))
+         (%#begin (%#begin-syntax
+                   (%#call (%#ref load-module)
+                           (%#quote "jafourni/gerbil-postgres/transactions~1")))
+                  (%#define-syntax
+                   with-transaction
+                   |jafourni/gerbil-postgres/transactions[:0:]#with-transaction|))
+         (%#define-runtime
+          pg-savepoint
+          jafourni/gerbil-postgres/transactions#pg-savepoint)
+         (%#define-syntax
+          with-savepoint
+          |jafourni/gerbil-postgres/transactions[:0:]#with-savepoint|)
+         (%#begin (%#define-runtime
+                   call-with-serializable-retry__%
+                   jafourni/gerbil-postgres/transactions#call-with-serializable-retry__%)
+                  (%#define-runtime
+                   call-with-serializable-retry__@
+                   jafourni/gerbil-postgres/transactions#call-with-serializable-retry__@)
+                  (%#define-runtime
+                   call-with-serializable-retry
+                   jafourni/gerbil-postgres/transactions#call-with-serializable-retry))
+         (%#define-syntax
+          with-serializable-retry
+          |jafourni/gerbil-postgres/transactions[:0:]#with-serializable-retry|))
+(%#call (%#ref load-module)
+        (%#quote "jafourni/gerbil-postgres/transactions~0"))
